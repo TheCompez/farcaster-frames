@@ -1,0 +1,20 @@
+Options -Indexes
+RewriteEngine On
+
+# Redirect www to non-www (if applicable for the subdomain)
+# This rule might not be needed for the subdomain if it's already non-www
+# RewriteCond %{HTTP_HOST} ^www\.statspro\.genyframe\.xyz [NC]
+# RewriteRule ^(.*)$ https://statspro.genyframe.xyz/$1 [L,R=301]
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Deny access to the root directory
+<FilesMatch "^\.(htaccess|git|svn|sh|pl|py|cgi|conf|ini|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Optionally, you can add other rules or configurations specific to the subdomain
+
